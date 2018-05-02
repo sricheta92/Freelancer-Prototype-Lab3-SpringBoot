@@ -8,7 +8,7 @@ export function checkEmail(state) {
 		let temp = {
 			"email": state.email
 		};
-		return axios.post("http://localhost:5000/signup/checkEmail", temp).
+		return axios.post("http://localhost:9090/signup/checkEmail", temp).
     then((response) => {
 			if( response.data){
 				dispatch({type:actionType.EMAIL_VALID, payload: response.data})
@@ -30,7 +30,7 @@ export function signup(state) {
       "role" :state.role
 
     };
-    return axios.post("http://localhost:5000/signup", temp).then((response) => {
+    return axios.post("http://localhost:9090/signup", temp).then((response) => {
       if( response.data){
         dispatch({type:actionType.SIGNUP_SUCCESS, payload: response.data})
       }
@@ -48,7 +48,7 @@ export function checkUser(state) {
     let temp = {
       "username": state.username
     };
-    return axios.post("http://localhost:5000/signup/checkUser", temp).then((response) => {
+    return axios.post("http://localhost:9090/signup/checkUser", temp).then((response) => {
       if( response.data){
         dispatch({type:actionType.USERNAME_VALID, payload: response.data})
       }
@@ -67,7 +67,7 @@ export function login(state){
         "password": state.password
       }
 
-      return axios.post("http://localhost:5000/login", temp).then((response) => {
+      return axios.post("http://localhost:9090/login", temp).then((response) => {
         if( response.data.token){
           localStorage.setItem('jwtToken', response.data.token);
   				localStorage.setItem('userid', response.data.userid);
@@ -83,7 +83,7 @@ export function login(state){
 
 export function getAllSkills(state){
   return function(dispatch){
-   return axios.get("http://localhost:5000/skill/allSkills").then((response) => {
+   return axios.get("http://localhost:9090/skill/allSkills").then((response) => {
       if( response.data){
         dispatch({type:actionType.GET_SKILLS_SUCCESS, payload: response.data})
       }
@@ -100,7 +100,7 @@ export function getAllSkills(state){
 
 export function getAllCategories(state){
     return function(dispatch){
-      return axios.get("http://localhost:5000/skill/allCategories").then((response) => {
+      return axios.get("http://localhost:9090/skill/allCategories").then((response) => {
           if( response.data){
             dispatch({type:actionType.GET_CATEGORY_SUCCESS, payload: response.data})
           }
@@ -114,7 +114,7 @@ export function getAllCategories(state){
 export function getAllSkillsByCategory(state){
   return function(dispatch){
 
-    return axios.get("http://localhost:5000/skill/skillsByCategory" ).then((response) => {
+    return axios.get("http://localhost:9090/skill/skillsByCategory" ).then((response) => {
       if( response.data){
         dispatch({type:actionType.GET_SKILLS_BY_CATEGORY_SUCCESS, payload: response.data})
       }
@@ -140,7 +140,7 @@ export function completeProfile(state){
         "headline" :state.headline
       };
 
-    return axios.post("http://localhost:5000/signup/withDetails",temp).then((response) => {
+    return axios.post("http://localhost:9090/signup/withDetails",temp).then((response) => {
        if( response.data){
          dispatch({type:actionType.COMPLETE_PROFILE_SUCCESS, payload: response.data})
        }
@@ -158,7 +158,7 @@ export function mapSkillToUser(state){
         "userID" :state.userID,
         "skills" : state.skills
     };
-    return axios.post("http://localhost:5000/skill/withDetails",temp).then((response) => {
+    return axios.post("http://localhost:9090/skill/withDetails",temp).then((response) => {
        if( response.data){
          dispatch({type:actionType.COMPLETE_PROFILE_SKILL_SUCCESS, payload: response.data})
        }
@@ -189,7 +189,7 @@ export function handleFileUpload(state,file){
 
     var data = new FormData();
   	data.append("file", file);
-    return axios.post("http://localhost:5000/project/uploadFiles", data).then((response) => {
+    return axios.post("http://localhost:9090/project/uploadFiles", data).then((response) => {
        if( response.data){
          dispatch({type:actionType.FILE_UPLOAD_SUCCESS, payload: response.data})
        }
@@ -210,7 +210,7 @@ export function postProject(state){
       project_pay_type :state.selectedOption
     }
 
-    return axios.post("http://localhost:5000/project/postprojects", data).then((response) => {
+    return axios.post("http://localhost:9090/project/postprojects", data).then((response) => {
        if( response.data){
          dispatch({type:actionType.POST_PROJECT_SUCCESS, payload: response.data})
        }
@@ -227,7 +227,7 @@ export function mapfilesToProject(props){
       projectid : props.projectid,
       filepath :props.uploadname
     }
-    return axios.post("http://localhost:5000/project/mapFilesToProject", data).then((response) => {
+    return axios.post("http://localhost:9090/project/mapFilesToProject", data).then((response) => {
        if( response.data){
          dispatch({type:actionType.MAP_FILES_TO_PROJECT_SUCCESS, payload: response.data})
        }
@@ -243,7 +243,7 @@ export function mapSkillToProject(props,state){
       projectid : props.projectid,
       skills : state.selectedSkills
     }
-    return axios.post("http://localhost:5000/project/mapSkillToProject", data).then((response) => {
+    return axios.post("http://localhost:9090/project/mapSkillToProject", data).then((response) => {
        if( response.data){
          dispatch({type:actionType.MAP_SKILLS_TO_PROJECT_SUCCESS, payload: response.data})
        }
@@ -260,7 +260,7 @@ export function mapProjectToUser(state,props){
         userid :props.userID,
         role : state.role
       }
-      return axios.post("http://localhost:5000/project/mapProjectToUser", data).then((response) => {
+      return axios.post("http://localhost:9090/project/mapProjectToUser", data).then((response) => {
          if( response.data){
            dispatch({type:actionType.MAP_PROJECT_TO_USER_SUCCESS, payload: response.data})
          }
@@ -272,7 +272,7 @@ export function mapProjectToUser(state,props){
 
 export function getRecommendedProjects(props){
   return function(dispatch){
-    return axios.get("http://localhost:5000/project/mapRecommendedProjects/"+ props.userID ).then((response) => {
+    return axios.get("http://localhost:9090/project/mapRecommendedProjects/"+ props.userID ).then((response) => {
        if( response.data){
 
 
@@ -319,7 +319,7 @@ export function saveBidOfUser(state){
       "bid_days" :state.bid_days,
       "bid_price" :state.bid_price
 		};
-    return axios.post("http://localhost:5000/project/bidproject",temp).then((response) => {
+    return axios.post("http://localhost:9090/project/bidproject",temp).then((response) => {
        if( response.data){
          dispatch({type:actionType.PROJECT_BID_SUCCESS, payload: response.data})
        }
@@ -346,7 +346,7 @@ export function hideDashboard(data){
 
 export function getAllBiddedProject(data){
   return function(dispatch){
-    return axios.get("http://localhost:5000/user/biddedprojects/"+data).then((response) => {
+    return axios.get("http://localhost:9090/user/biddedprojects/"+data).then((response) => {
        if( response.data){
          dispatch({type:actionType.GET_BIDDED_PROJECTS_SUCCESS, payload: response.data})
        }
@@ -365,7 +365,7 @@ export function getDashboardSwitchStatus(data){
 
 export function getAllPostedProjectsbyMe(data){
   return function(dispatch){
-    return axios.get("http://localhost:5000/user/postedprojects/"+data).then((response) => {
+    return axios.get("http://localhost:9090/user/postedprojects/"+data).then((response) => {
        if( response.data){
          dispatch({type:actionType.GET_POSTED_PROJECTS_SUCCESS, payload: response.data})
        }
@@ -377,7 +377,7 @@ export function getAllPostedProjectsbyMe(data){
 
 export function getUserDetails(data){
   return function(dispatch){
-    return axios.get("http://localhost:5000/user/detail/"+data).then((response) => {
+    return axios.get("http://localhost:9090/user/detail/"+data).then((response) => {
        if( response.data){
          dispatch({type:actionType.GET_USER_DETAIL_SUCCESS, payload: response.data})
        }
@@ -389,7 +389,7 @@ export function getUserDetails(data){
 
 export function downloadFile(fileName){
 	return function(dispatch){
-		return axios.get("http://localhost:5000/user/downloadFile?profilePicPath="+fileName, { responseType: 'arraybuffer' }).then((response) => {
+		return axios.get("http://localhost:9090/user/downloadFile?profilePicPath="+fileName, { responseType: 'arraybuffer' }).then((response) => {
 			// fileDownload(response.data, "profilepic.jpg");
 
        var arrayBufferView = new Uint8Array( response.data );
