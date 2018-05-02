@@ -13,6 +13,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findByEmailAndPassword(String email,String password);
     List<User> findByUsernameAndPassword(String username,String password);
 	List<User> findByUserid(int userid);
+	List<User> findByEmail(String email);
+	List<User> findByUsername(String username);
 
     
 }

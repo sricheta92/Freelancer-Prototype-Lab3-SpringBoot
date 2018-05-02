@@ -1,6 +1,8 @@
 package com.service;
 
-import java.util.ArrayList;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.entity.Project;
-import com.entity.ProjectBid;
 import com.entity.Skill;
 import com.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,6 +47,18 @@ public class UserService {
     }
 
     public List<User> login(LoginPayload user) {
+
+    	MessageDigest messageDigest =null;
+		try {
+			messageDigest = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        messageDigest.update(user.getPassword().getBytes(),0,user.getPassword().length());
+        String md5String = new BigInteger(1,messageDigest.digest()).toString(16);
+        user.setPassword(md5String);
+        
 		List<User> user1 =  userRepository.findByEmailAndPassword(user.getUseroremail(), user.getPassword());
 		List<User> user2 = userRepository.findByUsernameAndPassword(user.getUseroremail(), user.getPassword());
 		if((user1!= null && !user1.isEmpty())) {
@@ -60,11 +73,11 @@ public class UserService {
 		}
 	}
 
-	public ObjectNode checkUser(User user) {
+	public ObjectNode checkUser(User user) throws NoSuchAlgorithmException {
 
 		    ObjectNode obj = objectMapper.createObjectNode();
-			List<User> user1 =  userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
-			List<User> user2 = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+			List<User> user1 =  userRepository.findByEmail(user.getEmail());
+			List<User> user2 = userRepository.findByUsername(user.getUsername());
 			if(user1!= null && !user1.isEmpty()) {
 				obj.put("code", "409");
 				obj.put("success", "false");
@@ -77,6 +90,10 @@ public class UserService {
 				obj.put("inuse", "user");
 				obj.put("message", "This username already exists, please choose another");
 			}else {
+				MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+		        messageDigest.update(user.getPassword().getBytes(),0,user.getPassword().length());
+		        String md5String = new BigInteger(1,messageDigest.digest()).toString(16);
+		        user.setPassword(md5String);
 				User usersaved = userRepository.save(user);
 				obj.put("code", "200");
 				obj.put("success", "true");
@@ -85,8 +102,6 @@ public class UserService {
 				obj.put("username", usersaved.getUsername());
 			}
 		
-		
-		
 		return obj;
 		
 	}
@@ -94,7 +109,7 @@ public class UserService {
 	public ObjectNode checkEmail(User user) {
 
 		ObjectNode obj = objectMapper.createObjectNode();
-		List<User> user1 =  userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
+		List<User> user1 =  userRepository.findByEmail(user.getEmail());
 		if(user1!= null && !user1.isEmpty()) {
 			obj.put("code", "409");
 			obj.put("success", "false");
@@ -110,7 +125,7 @@ public class UserService {
 	public ObjectNode checkUsername(User user) {
 
 		ObjectNode obj = objectMapper.createObjectNode();
-		List<User> user1 =  userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+		List<User> user1 =  userRepository.findByUsername(user.getUsername());
 		if(user1!= null && !user1.isEmpty()) {
 			obj.put("code", "409");
 			obj.put("success", "false");

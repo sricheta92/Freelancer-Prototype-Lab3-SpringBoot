@@ -44,7 +44,6 @@ public class Project implements Serializable{
 
 	private String document;
 
-	
 	@Temporal(TemporalType.DATE)
 	private Date create_ts;
 
@@ -59,7 +58,6 @@ public class Project implements Serializable{
 	public Project() {
 		
 	}
-	
 	
 	public Project(int projectid) {
 		this.projectId = projectid;

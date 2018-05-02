@@ -1,5 +1,7 @@
 package com.controller;
 
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,18 +19,25 @@ import com.service.UserService;
 @CrossOrigin(origins = "http://localhost:3000")
 public class SignupController {
 
-	@Autowired
+	@Autowired 
 	private UserService userService;
 	
 	@PostMapping(path= "/signup", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<?>  checkUser (@RequestBody User user) {
-		ObjectNode userreturn = userService.checkUser(user);
+		ResponseEntity re = null;
+		ObjectNode userreturn;
+		try {
+			userreturn = userService.checkUser(user);
 			if(userreturn.get("code").asText().equals("409")) {
-				 return new ResponseEntity(userreturn,HttpStatus.UNAUTHORIZED);
+				 re =  new ResponseEntity(userreturn,HttpStatus.UNAUTHORIZED);
 			}
 			else {
-				 return new ResponseEntity(userreturn,HttpStatus.OK);
+				 re=  new ResponseEntity(userreturn,HttpStatus.OK);
 			}
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return re;
 	}
 	
 
