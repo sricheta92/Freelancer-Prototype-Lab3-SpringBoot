@@ -1,8 +1,0 @@
-com\entity\ProjectBidId.class
-com\entity\ProjectBid.class
-com\controller\UserController.class
-com\repository\UserRepository.class
-com\FreelancerBackendApplication.class
-com\entity\User.class
-com\entity\Project.class
-com\service\UserService.class
