@@ -43,7 +43,7 @@ public class UserController {
 	      return new ResponseEntity(obj,HttpStatus.OK);
 	    }else {
 	    	obj.putPOJO("success", false);
-	      return new ResponseEntity(obj,HttpStatus.NOT_FOUND);
+	      return new ResponseEntity(obj,HttpStatus.NOT_FOUND); 
 	    }
 	    
 	}
