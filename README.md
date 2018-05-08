@@ -1,13 +1,13 @@
 # Freelancer Prototype
 
-Freelancer like scalable web application developed in MERN Stack
+Freelancer like scalable web application developed in React JS, SQL and Spring Boot Stack
 
 ![alt text](screenshots/Capture.PNG "Landing page")
 
 ### Prerequisites
 
 ```
-should have NodeJS installed in your system.
+should have Spring Boot installed in your system.
 ```
 ## Getting Started
 
@@ -23,9 +23,8 @@ Follow the be below steps
 
 Follow the be below steps
 ```
-1. go to server folder
-2. run command - nodemon server
-3. you can see the node console
+1. go to Freelancer-BE folder
+2. run java file FreelancerBackendApplication.java
 ```
 
 
@@ -33,9 +32,8 @@ Follow the be below steps
 
 Follow the be below steps
 ```
-1. go to server folder
-2. run command - npm test
-3. you can see the mocha test results
+1. go to Freelancer-BE folder
+2. run all junit test cases
 ```
 
 
