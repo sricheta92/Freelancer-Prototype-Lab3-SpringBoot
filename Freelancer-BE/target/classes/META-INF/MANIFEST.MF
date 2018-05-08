@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: Freelancer-BE
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Sricheta's computer
+Implementation-Vendor-Id: com.freelancer
+Build-Jdk: 1.8.0_161
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/Freelancer-BE
+Created-By: Maven Integration for Eclipse
+
