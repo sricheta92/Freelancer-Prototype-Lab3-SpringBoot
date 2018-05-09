@@ -19,7 +19,7 @@ Follow the be below steps
 2. run command - npm start or yarn start
 3. you can see the react console
 ```
-### Installing Server side (running on 5000)
+### Installing Server side (running on 9090)
 
 Follow the be below steps
 ```
@@ -28,7 +28,7 @@ Follow the be below steps
 ```
 
 
-## Running the Mocha test cases
+## Running the JUnit test cases
 
 Follow the be below steps
 ```
